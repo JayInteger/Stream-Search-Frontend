@@ -130,22 +130,7 @@
           ></div>
         </div>
       </div>
-      <div class="bg-grey m-0 mt-2 row" id="container-movie">
-        <div class="col-12 text-light rounded p-1 col-12 row">
-          <label class="col-12"><h4>Search A Movie:</h4></label>
-          <input
-            type="text"
-            id="search-movie"
-            class="col-12 ms-2"
-            style="max-height: 25px"
-            v-model="title"
-            @submit="setTitle()"
-          />
-          <div v-if="title" class="hashtag-element active-genre mx-auto col-12">
-            {{ title }}
-          </div>
-        </div>
-      </div>
+      
       <div class="bg-grey m-0 mt-2 row" id="container-actors">
         <div class="col-12 text-light rounded p-1 col-12 row">
           <label class="col-12"><h4>Filter For Actors:</h4></label>
@@ -172,13 +157,31 @@
           </div>
         </div>
       </div>
+
+      <div class="bg-grey m-0 mt-2 row" id="container-movie">
+        <div class="col-12 text-light rounded p-1 col-12 row">
+          <label class="col-12"><h4>Search A Movie:</h4></label>
+          <input
+            type="text"
+            id="search-movie"
+            class="col-12 ms-2"
+            style="max-height: 25px"
+            v-model="title"
+            @submit="setTitle()"
+          />
+          <div v-if="title" class="hashtag-element active-genre ms-2 mt-1 col-12" @click="removeTitle" role="button">
+            {{ title }} X
+          </div>
+        </div>
+      </div>
+
       <div class="bg-grey m-0 mt-2 mb-5 row" id="container-submits">
-        <div class="col-6 d-grid p-0 m-0">
-          <button type="reset" class="btn btn-outline-primary submit" disabled>
+        <div class="col-6 d-grid p-2 ps-0 m-0">
+          <button type="reset" class="btn btn-outline-secondary submit" @click="reset()">
             Reset
           </button>
         </div>
-        <div class="col-6 d-grid p-0 m-0">
+        <div class="col-6 d-grid p-2 m-0">
           <button
             type="submit"
             class="btn btn-outline-primary submit"
@@ -262,12 +265,8 @@ export default {
             ? true
             : false;
         });
-        console.log(this.actors)
       if (this.actors.length != 0) {
 
-        console.log("actors:")
-        console.log(this.actors)
-        console.log("actors = true!")
         movies = movies.filter((movie) => {
           let temp = false;
           this.actors.forEach((actor) => {
@@ -278,14 +277,34 @@ export default {
         return temp ==true ? true : false; 
         });
       }
-      console.log(movies);
+      if(this.title){
+        movies = movies.filter((movie) => {
+          return movie.title.toLowerCase() == this.title.toLowerCase()
+        })
+      }
 
       this.$store.dispatch("setFilteredMovies", movies);
     },
     setFsk(newFsk) {
       this.fsk = newFsk;
     },
-
+    reset(){
+      this.title ="";
+      this.activeGenres = [];
+      this.inActiveGenres = this.allGenres;
+      this.actors = [];
+      this.fsk = 0;
+      this.searchInDisney = false;
+      this.searchInNetflix = false;
+      this.searchInPrime = false;
+      this.filter();
+    },
+    setTitle(newTitle){
+      this.title = newTitle;
+    },
+    removeTitle(){
+      this.title ="";
+    },
     activateGenre(genre) {
       this.inActiveGenres = this.inActiveGenres.filter(
         (inActiveGenre) => inActiveGenre !== genre
@@ -311,14 +330,7 @@ export default {
       }
     },
     setSearch() {
-      // console.log(this.searchFor);
-      // this.searchFor.type === "Genre"
-      //   ? this.activateGenre(this.searchFor.content)
-      //   : this.searchFor.type === "Actor"
-      //   ? this.addActor(this.searchFor.content)
-      //   : this.searchFor.type === "Title"
-      //   ? (this.title = this.searchFor.content)
-      //   : "No search";
+
         switch (this.searchFor.type) {
           case "Genre":
             this.activateGenre(this.searchFor.content);
@@ -330,6 +342,8 @@ export default {
             break;
           case "Title":
             this.title = this.searchFor.content;
+            this.inActiveGenres = [];
+            this.activeGenres = this.allGenres;
             break;
         
           default:

@@ -25,9 +25,6 @@ export default {
   created() {
     this.searchFor.type = this.$route.params.type;
     this.searchFor.content = this.$route.params.content;
-    console.log(this.searchFor.type);
-    console.log(this.searchFor.content);
-
   },
 };
 </script>
