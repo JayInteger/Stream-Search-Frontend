@@ -1,0 +1,43 @@
+{
+  "name": "stream-search",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.2.0",
+    "@fortawesome/free-brands-svg-icons": "^6.2.0",
+    "@fortawesome/free-solid-svg-icons": "^6.2.0",
+    "@fortawesome/vue-fontawesome": "^3.0.1",
+    "@splidejs/vue-splide": "^0.6.11",
+    "animate.css": "^4.1.1",
+    "axios": "^0.27.2",
+    "bootstrap": "^5.2.1",
+    "bootstrap-vue": "^2.22.0",
+    "core-js": "^3.8.3",
+    "popper.js": "^1.16.1",
+    "portal-vue": "^2.1.7",
+    "vee-validate": "^4.4.7",
+    "vue": "^3.2.39",
+    "vue-router": "^4.0.3",
+    "vuex": "^4.0.0",
+    "yup": "^0.32.9"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "sass": "^1.26.11",
+    "sass-loader": "^10.0.2",
+    "vue-cli-plugin-bootstrap-vue": "~0.8.2"
+  }
+}
